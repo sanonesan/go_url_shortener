@@ -1,33 +1,38 @@
 package main
 
 import (
-	"fmt"
-	"log"
 	"os"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"go.uber.org/zap"
 
-	"url_shortener/main/routes"
+	"url_shortener/routes"
 )
 
-// func setupRoutes(app *fiber.App) {
-// 	app.Get("/:url", routes.ResolveURL)
-// 	app.Post("/:url", routes.ShortenURL)
-// }
+func setupRouter(r *gin.Engine) {
+	r.POST("/short", routes.ShortenURL)
+	r.GET("/:url", routes.ResolveShortURL)
+}
 
 func main() {
-	fmt.Println("hello World")
-	// err := godotenv.Load()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	//
-	// app := fiber.New()
-	// app.Use(logger.New())
-	//
-	// setupRoutes(app)
-	//
-	// log.Fatal(app.Listen(os.Getenv("APP_PORT")))
+	logger := zap.Must(zap.NewDevelopment())
+	defer logger.Sync()
+
+	if err := godotenv.Load(); err != nil {
+		logger.Fatal("Error loading .env file")
+	}
+
+	logger.Info("CREAT router...")
+	r := gin.Default()
+	logger.Info("Router CREATED!")
+
+	logger.Info("SETUP router...")
+	setupRouter(r)
+	logger.Info("Router IS READY!")
+
+	logger.Info("Running API...")
+	r.Run(
+		":" + os.Getenv("API_PORT"),
+	)
 }

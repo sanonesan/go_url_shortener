@@ -1,0 +1,39 @@
+
+###
+
+POST http://localhost:8080/short HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+url=http://google.com
+
+###
+
+###
+
+GET http://localhost:8080/long HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+url=HjKwcK_QH2
+
+###
+
+
+
+###
+
+POST http://localhost:8080/short HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+url=adgsdg
+
+###
+
+
+###
+
+POST http://localhost:8080/short HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+url=https://www.localhost:8080
+
+###

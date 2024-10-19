@@ -1,16 +1,31 @@
-# docker-compose.yml
+# version: "3"
+
 services:
-  db:
-    image: surrealdb/surrealdb:latest
-    ports:
-      - "8000:8000"
-    environment:
-      - SURREALDB_ROOT_PASSWORD=root
-    command: ["start", "--log", "info", "--user", "root", "--pass", "root"]
 
   api:
-    build: .
+    build: 
+      context: ./api
     ports:
-      - "8080:8080"
-    depends_on:
-      - db
+      - 8080:8080
+    # environment:
+    #   - ENV=dev
+    #   - PORT=8100
+    #   - SURREAL_HOST=ws://db:8001/rpc
+    #   - SURREAL_USER=root
+    #   - SURREAL_PASS=root
+    #   - SURREAL_DB=example
+    #   - SURREAL_NS=dev
+#     - GIN_MODE=release
+    # depends_on:
+    #   - db
+
+
+  # db: 
+  #   build: 
+  #     context: ./db 
+  #   restart: always
+  #   command: "start -b 0.0.0.0:8001 --user root --pass root"
+  #   ports:
+  #     - 8000:8001
+  #   volumes:
+  #     - ./data:/data

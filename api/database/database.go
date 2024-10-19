@@ -1,17 +1,35 @@
 package database
 
-import (
-	"context"
-	"os"
+import "fmt"
 
-	surrealdb "github.com/surrealdb/surrealdb.go"
-)
+type Database struct {
+	StorageU2SU map[string]string
+	StorageSU2U map[string]string
+	Connected   bool
+}
 
-var Ctx = context.Background()
+func NewDB() *Database {
+	db := new(Database)
+	db.StorageU2SU = make(map[string]string)
+	db.StorageSU2U = make(map[string]string)
+	db.Connected = false
+	return db
+}
 
-func CreateClient(dbNo int) *surrealdb.DB {
-	surDB, _ := surrealdb.New(
-		os.Getenv("DB_ADDR"),
-	)
-	return surDB
+var DB *Database = NewDB()
+
+func (db *Database) OpenConnection() {
+	if !db.Connected {
+		db.Connected = true
+	} else {
+		fmt.Println("DB is CONNECTED!")
+	}
+}
+
+func (db *Database) CloseConnection() {
+	if db.Connected {
+		db.Connected = false
+	} else {
+		fmt.Println("DB is DISCONNECTED!")
+	}
 }
