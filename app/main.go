@@ -11,6 +11,10 @@ import (
 )
 
 func setupRouter(r *gin.Engine) {
+	// GIN testing handle
+	// r.GET("/ping", routes.PingPong)
+
+	// url_shortener API handles
 	r.POST("/short", routes.ShortenURL)
 	r.GET("/:url", routes.ResolveShortURL)
 }
@@ -35,4 +39,5 @@ func main() {
 	r.Run(
 		":" + os.Getenv("API_PORT"),
 	)
+	logger.Info("API CLOSED!")
 }

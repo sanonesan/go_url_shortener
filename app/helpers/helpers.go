@@ -26,8 +26,12 @@ func RemoveDomainError(url string) bool {
 	newURL = strings.Replace(newURL, "www.", "", 1)
 	newURL = strings.Split(newURL, "/")[0]
 
-	if newURL == os.Getenv("DOMAIN") {
+	if newURL == os.Getenv("DOMAIN")+":"+os.Getenv("API_PORT") {
 		return false
 	}
+	if newURL == os.Getenv("DOMAIN")+":"+os.Getenv("DB_PORT") {
+		return false
+	}
+
 	return true
 }

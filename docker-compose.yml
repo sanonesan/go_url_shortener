@@ -2,30 +2,46 @@
 
 services:
 
-  api:
+  db:
+    container_name: ShortURLDB
+    build:
+      context: ./db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?err}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
+      POSTGRES_USER: ${POSTGRES_USER:?err}
+    healthcheck:
+          test: [CMD-SHELL, "sh -c 'pg_isready -U ${POSTGRES_USER} --dbname ${POSTGRES_DB}'"]
+          interval: 10s
+          timeout: 5s
+          retries: 5
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresDB:/var/lib/postgresql/data
+    networks:  
+      - url_shortener_net
+
+
+  app:
+    container_name: ShortURLApi
     build: 
-      context: ./api
+      context: ./app
+    restart: always
+    env_file: ./app/.env
     ports:
       - 8080:8080
-    # environment:
-    #   - ENV=dev
-    #   - PORT=8100
-    #   - SURREAL_HOST=ws://db:8001/rpc
-    #   - SURREAL_USER=root
-    #   - SURREAL_PASS=root
-    #   - SURREAL_DB=example
-    #   - SURREAL_NS=dev
-#     - GIN_MODE=release
-    # depends_on:
-    #   - db
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:  
+      - url_shortener_net
 
 
-  # db: 
-  #   build: 
-  #     context: ./db 
-  #   restart: always
-  #   command: "start -b 0.0.0.0:8001 --user root --pass root"
-  #   ports:
-  #     - 8000:8001
-  #   volumes:
-  #     - ./data:/data
+volumes:
+ postgresDB:
+
+
+networks:
+  url_shortener_net:

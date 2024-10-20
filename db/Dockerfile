@@ -1,4 +1,3 @@
-FROM surrealdb/surrealdb:latest
+FROM postgres:latest
 
-EXPOSE 8000
-
+COPY ./create_databases.sql /docker-entrypoint-initdb.d/create_databases.sql

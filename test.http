@@ -10,10 +10,29 @@ url=http://google.com
 
 ###
 
-GET http://localhost:8080/long HTTP/1.1
+GET http://localhost:8080/HjKwcK_QH2 HTTP/1.1
+
+###
+
+
+###
+
+POST http://localhost:8080/short HTTP/1.1
 content-type: application/x-www-form-urlencoded
 
-url=HjKwcK_QH2
+url=http://yandex.ru
+
+###
+
+###
+
+GET http://localhost:8080/f6NjfbklQe HTTP/1.1
+
+###
+
+###
+
+GET http://localhost:8080/f6Njfbdfde HTTP/1.1
 
 ###
 
