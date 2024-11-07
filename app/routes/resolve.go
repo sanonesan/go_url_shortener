@@ -9,6 +9,7 @@ import (
 	"url_shortener/handlers"
 )
 
+// Return Long Url by short one
 func ResolveShortURL(c *gin.Context) {
 	short_url := c.Param("url")
 

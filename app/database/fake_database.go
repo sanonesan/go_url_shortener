@@ -1,4 +1,8 @@
-package database
+// // First realization of project
+// // without real database
+// // only with using map
+
+// package database
 
 // import "fmt"
 //

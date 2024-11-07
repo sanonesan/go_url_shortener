@@ -45,6 +45,7 @@ func ShortenURL(c *gin.Context) {
 			"message":   "Server error",
 			"short_url": err,
 		})
+		return
 	}
 	// Handler for database
 	h := handlers.New(DB)

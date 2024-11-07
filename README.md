@@ -1,5 +1,13 @@
 # go_url_shortener
 
+Test GOLANG project.
+Purposes:
+- try out GOLANG
+- using Go tools 
+- try to understand Go logic and Go projects architecture
+- using Go framework
+- using Go ORM 
+
 
 ## Used resources:
 
